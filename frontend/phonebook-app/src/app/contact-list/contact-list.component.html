@@ -1,0 +1,69 @@
+// Esto es una caja de filtros que me permite combinar los 3 tipos de contacto como quiera el usuario 
+<div class="filter-box">
+  <strong>Mostrar:</strong>
+  <label class="ms-3">
+    <input type="checkbox" [(ngModel)]="filters.person" (change)="onFilterChange()">
+    Personas
+  </label>
+  <label class="ms-3">
+    <input type="checkbox" [(ngModel)]="filters.publicOrg" (change)="onFilterChange()">
+    Organizaciones públicas
+  </label>
+  <label class="ms-3">
+    <input type="checkbox" [(ngModel)]="filters.privateOrg" (change)="onFilterChange()">
+    Organizaciones privadas
+  </label>
+</div>
+
+// boton para agregar un contacto nuevo 
+<button type="button" class="btn btn-primary btn-sm mb-2" (click)="openAddModal()">
+  + Agregar contacto
+</button>
+
+<table>
+  <thead>
+    <tr>
+      <th>Tipo</th>
+      <th>Nombre</th>
+      <th>Teléfono</th>
+      <th>Comentarios</th>
+      <th>Datos adicionales</th>
+      <th>Editar</th>
+      <th>Eliminar</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let contact of contacts">
+      <td>{{ labels[contact.contactType] }}</td>
+      <td>{{ contact.name }}</td>
+      <td>{{ contact.phoneNumber }}</td>
+      <td>{{ contact.comments }}</td>
+
+      // se muestra los campos distintos según el tipo de contacto 
+      <td>
+        <ng-container [ngSwitch]="contact.contactType">
+          <span *ngSwitchCase="ContactType.Person">
+            {{ contact.jobTitle }} <span *ngIf="contact.birthDate">- Nace: {{ contact.birthDate | date:'shortDate' }}</span>
+          </span>
+          <span *ngSwitchCase="ContactType.PublicOrganization">
+            {{ contact.department }} <span *ngIf="contact.registrationNumber">- NIT/Registro: {{ contact.registrationNumber }}</span>
+          </span>
+          <span *ngSwitchCase="ContactType.PrivateOrganization">
+            {{ contact.industry }} <span *ngIf="contact.taxId">- NIT: {{ contact.taxId }}</span>
+          </span>
+        </ng-container>
+      </td>
+
+      <td>
+        <button type="button" class="btn btn-secondary btn-sm" (click)="openEditModal(contact)">Editar</button>
+      </td>
+      <td>
+        <button type="button" class="btn btn-danger btn-sm" (click)="openDeleteModal(contact)">Eliminar</button>
+      </td>
+    </tr>
+
+    <tr *ngIf="contacts.length === 0">
+      <td colspan="7" class="text-center">No hay contactos para mostrar.</td>
+    </tr>
+  </tbody>
+</table>

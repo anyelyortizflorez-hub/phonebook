@@ -1,0 +1,114 @@
+/*
+  La idea de este archivo es hacer mas sencillo un poco a Bootstrap para que
+  se vea sobrio, cuadrado y a la antigua estilo 2007-2008:
+  - Fondo gris clarito
+  - Un solo tono de azul #3b5998 un azul clasico
+  - Bordes rectos sin border-radius
+  - Tipografia tipo tahoma lucida grande sin sombras ni gradientes
+*/
+
+body {
+  background-color: #e9eaed;
+  font-family: "Lucida Grande", Tahoma, Verdana, Arial, sans-serif;
+  font-size: 13px;
+  color: #1d2129;
+}
+
+/* Barra superior */
+.app-header {
+  background-color: #3b5998;
+  border-bottom: 1px solid #29447e;
+  padding: 8px 16px;
+  color: #ffffff;
+}
+
+.app-header h1 {
+  font-size: 18px;
+  font-weight: bold;
+  margin: 0;
+  color: #ffffff;
+}
+
+.app-container {
+  max-width: 960px;
+  margin: 20px auto;
+  background-color: #ffffff;
+  border: 1px solid #cccccc;
+  padding: 15px;
+}
+
+/* No use nada moderno como sombras, bordes redondeados o degradados */
+.btn {
+  border-radius: 2px !important;
+  box-shadow: none !important;
+  font-size: 12px;
+}
+
+.btn-primary {
+  background-color: #3b5998;
+  border-color: #29447e;
+}
+.btn-primary:hover {
+  background-color: #2d4373;
+  border-color: #29447e;
+}
+
+.btn-secondary {
+  background-color: #eceff4;
+  border-color: #ccd0d5;
+  color: #1d2129;
+}
+
+.btn-danger {
+  background-color: #a33;
+  border-color: #822;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+table th {
+  background-color: #f2f2f2;
+  border: 1px solid #cccccc;
+  font-size: 12px;
+  padding: 6px 8px;
+  text-align: left;
+}
+
+table td {
+  border: 1px solid #dddddd;
+  padding: 6px 8px;
+  vertical-align: middle;
+}
+
+table tr:nth-child(even) {
+  background-color: #f7f8fa;
+}
+
+a {
+  color: #3b5998;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+
+.filter-box {
+  background-color: #f7f7f7;
+  border: 1px solid #dddddd;
+  padding: 8px 10px;
+  margin-bottom: 12px;
+  font-size: 12px;
+}
+
+.modal-content {
+  border-radius: 2px;
+  border: 1px solid #999999;
+}
+
+.modal-header {
+  background-color: #f2f2f2;
+  border-bottom: 1px solid #cccccc;
+}

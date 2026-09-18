@@ -1,0 +1,88 @@
+<div class="modal-header">
+  <h5 class="modal-title">{{ mode === 'add' ? 'Agregar contacto' : 'Editar contacto' }}</h5>
+  <button type="button" class="btn-close" (click)="cancel()"></button>
+</div>
+
+<div class="modal-body">
+  <form [formGroup]="form">
+
+    <!-- Tipo de contacto -->
+    <div class="mb-2">
+      <label class="form-label">Tipo de contacto</label>
+      <select class="form-select" formControlName="contactType">
+        <option [value]="ContactType.Person">Persona</option>
+        <option [value]="ContactType.PublicOrganization">Organización pública</option>
+        <option [value]="ContactType.PrivateOrganization">Organización privada</option>
+      </select>
+    </div>
+
+    <!-- Nombre -->
+    <div class="mb-2">
+      <label class="form-label">Nombre</label>
+      <input type="text" class="form-control" formControlName="name">
+      <div class="text-danger small" *ngIf="f('name')?.invalid && f('name')?.touched">
+        El nombre es obligatorio.
+      </div>
+    </div>
+
+    <!-- Telefono -->
+    <div class="mb-2">
+      <label class="form-label">Teléfono</label>
+      <input type="text" class="form-control" formControlName="phoneNumber">
+      <div class="text-danger small" *ngIf="f('phoneNumber')?.invalid && f('phoneNumber')?.touched">
+        El teléfono es obligatorio.
+      </div>
+    </div>
+
+    <!-- Comentarios -->
+    <div class="mb-2">
+      <label class="form-label">Comentarios</label>
+      <textarea class="form-control" rows="2" formControlName="comments"></textarea>
+    </div>
+
+    <hr>
+
+    <!-- Campos adicionales solo para Persona -->
+    <ng-container *ngIf="+f('contactType')?.value === ContactType.Person">
+      <div class="mb-2">
+        <label class="form-label">Fecha de nacimiento</label>
+        <input type="date" class="form-control" formControlName="birthDate">
+      </div>
+      <div class="mb-2">
+        <label class="form-label">Cargo / Profesión</label>
+        <input type="text" class="form-control" formControlName="jobTitle">
+      </div>
+    </ng-container>
+
+    <!-- Campos adicionales solo para organización publica -->
+    <ng-container *ngIf="+f('contactType')?.value === ContactType.PublicOrganization">
+      <div class="mb-2">
+        <label class="form-label">Número de registro</label>
+        <input type="text" class="form-control" formControlName="registrationNumber">
+      </div>
+      <div class="mb-2">
+        <label class="form-label">Dependencia / Departamento</label>
+        <input type="text" class="form-control" formControlName="department">
+      </div>
+    </ng-container>
+
+    <!-- Campos adicionales solo para organizacion privada -->
+    <ng-container *ngIf="+f('contactType')?.value === ContactType.PrivateOrganization">
+      <div class="mb-2">
+        <label class="form-label">NIT</label>
+        <input type="text" class="form-control" formControlName="taxId">
+      </div>
+      <div class="mb-2">
+        <label class="form-label">Industria / Sector</label>
+        <input type="text" class="form-control" formControlName="industry">
+      </div>
+    </ng-container>
+
+    <div class="text-danger small mt-2" *ngIf="errorMessage">{{ errorMessage }}</div>
+  </form>
+</div>
+
+<div class="modal-footer">
+  <button type="button" class="btn btn-secondary btn-sm" (click)="cancel()">Cancel</button>
+  <button type="button" class="btn btn-primary btn-sm" [disabled]="saving" (click)="save()">Save changes</button>
+</div>
